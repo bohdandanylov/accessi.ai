@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import AIAssistant from "@/components/ai-assistant"
-import LanguageSwitcher from "@/components/language-switcher"
 import { useTranslation } from "@/hooks/useTranslation"
 import {
   Check,
@@ -30,33 +29,6 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Navigation Bar */}
-      <div className="bg-gray-100 border-b border-gray-200">
-        <div className="container mx-auto px-4 py-2">
-          <div className="flex justify-end items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-              onClick={() => (window.location.href = "/auth/login")}
-            >
-              {t("nav.login")}
-            </Button>
-            <Button
-              size="sm"
-              style={{ backgroundColor: "#5409DA" }}
-              className="text-white hover:opacity-90 transition-all duration-200 hover:shadow-lg"
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "#4A08C7")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "#5409DA")}
-              onClick={() => (window.location.href = "/auth/signup")}
-            >
-              {t("nav.signUp")}
-            </Button>
-            <LanguageSwitcher />
-          </div>
-        </div>
-      </div>
-
       {/* Main Header */}
       <header className="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -71,17 +43,38 @@ export default function Component() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">
-              {t("nav.features")}
-            </a>
-            <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">
-              {t("nav.pricing")}
-            </a>
-            <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition-colors">
-              {t("nav.howItWorks")}
-            </a>
-          </nav>
+          <div className="hidden md:flex items-center space-x-6">
+            <nav className="flex items-center space-x-6 bg-gray-50 px-4 py-2 rounded-lg">
+              <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">
+                {t("nav.features")}
+              </a>
+              <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">
+                {t("nav.pricing")}
+              </a>
+              <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition-colors">
+                {t("nav.howItWorks")}
+              </a>
+            </nav>
+
+            <div className="flex items-center space-x-3 bg-gray-50 px-4 py-2 rounded-lg">
+              <Button
+                variant="ghost"
+                className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                onClick={() => (window.location.href = "/auth/login")}
+              >
+                {t("nav.login")}
+              </Button>
+              <Button
+                style={{ backgroundColor: "#5409DA" }}
+                className="text-white hover:opacity-90 transition-all duration-200 hover:shadow-lg"
+                onMouseEnter={(e) => (e.target.style.backgroundColor = "#4A08C7")}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = "#5409DA")}
+                onClick={() => (window.location.href = "/auth/signup")}
+              >
+                {t("nav.signUp")}
+              </Button>
+            </div>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -97,28 +90,30 @@ export default function Component() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white/70 backdrop-blur-md">
             <div className="px-4 py-4 space-y-4">
-              <a
-                href="#features"
-                className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("nav.features")}
-              </a>
-              <a
-                href="#pricing"
-                className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("nav.pricing")}
-              </a>
-              <a
-                href="#how-it-works"
-                className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("nav.howItWorks")}
-              </a>
-              <div className="pt-4 border-t border-gray-200 space-y-3">
+              <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+                <a
+                  href="#features"
+                  className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.features")}
+                </a>
+                <a
+                  href="#pricing"
+                  className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.pricing")}
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="block py-2 text-gray-600 hover:text-gray-900 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("nav.howItWorks")}
+                </a>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-3 space-y-3">
                 <Button
                   variant="outline"
                   className="w-full border-gray-300 text-gray-700 hover:bg-gray-50"
@@ -133,7 +128,6 @@ export default function Component() {
                 >
                   {t("nav.signUp")}
                 </Button>
-                <LanguageSwitcher />
               </div>
             </div>
           </div>
