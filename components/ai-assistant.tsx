@@ -132,45 +132,54 @@ export default function AIAssistant() {
 
   if (!isOpen) {
     return (
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
         <Button
           onClick={() => setIsOpen(true)}
-          className="rounded-full w-14 h-14 shadow-lg text-white transition-all duration-200 hover:shadow-xl"
+          className="rounded-full w-12 h-12 md:w-14 md:h-14 shadow-lg text-white transition-all duration-200 hover:shadow-xl"
           style={{ backgroundColor: "#5409DA" }}
           onMouseEnter={(e) => (e.target.style.backgroundColor = "#4A08C7")}
           onMouseLeave={(e) => (e.target.style.backgroundColor = "#5409DA")}
+          aria-label="Open AI Assistant"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
         </Button>
       </div>
     )
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Card className={`w-80 shadow-xl transition-all duration-300 ${isMinimized ? "h-16" : "h-96"}`}>
-        <CardHeader className="p-4 border-b" style={{ backgroundColor: "#5409DA" }}>
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
+      <Card
+        className={`w-80 md:w-80 shadow-xl transition-all duration-300 ${isMinimized ? "h-14 md:h-16" : "h-80 md:h-96"}`}
+      >
+        <CardHeader className="p-3 md:p-4 border-b" style={{ backgroundColor: "#5409DA" }}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5 text-white" />
-              <CardTitle className="text-white text-sm">AccessiAI Assistant</CardTitle>
+              <Bot className="w-4 h-4 md:w-5 md:h-5 text-white" />
+              <CardTitle className="text-white text-sm md:text-sm">AccessiAI Assistant</CardTitle>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 md:space-x-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMinimized(!isMinimized)}
                 className="text-white hover:bg-white/20 p-1 h-auto"
+                aria-label={isMinimized ? "Maximize chat" : "Minimize chat"}
               >
-                {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
+                {isMinimized ? (
+                  <Maximize2 className="w-3 h-3 md:w-4 md:h-4" />
+                ) : (
+                  <Minimize2 className="w-3 h-3 md:w-4 md:h-4" />
+                )}
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(false)}
                 className="text-white hover:bg-white/20 p-1 h-auto"
+                aria-label="Close chat"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3 h-3 md:w-4 md:h-4" />
               </Button>
             </div>
           </div>
@@ -178,23 +187,27 @@ export default function AIAssistant() {
 
         {!isMinimized && (
           <>
-            <CardContent className="p-0 h-64 overflow-y-auto">
-              <div className="p-4 space-y-4">
+            <CardContent className="p-0 h-48 md:h-64 overflow-y-auto">
+              <div className="p-3 md:p-4 space-y-3 md:space-y-4">
                 {messages.map((message) => (
                   <div
                     key={message.id}
                     className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[80%] p-3 rounded-lg ${
+                      className={`max-w-[85%] p-2 md:p-3 rounded-lg ${
                         message.sender === "user" ? "text-white" : "bg-gray-100 text-gray-900"
                       }`}
                       style={message.sender === "user" ? { backgroundColor: "#5409DA" } : {}}
                     >
                       <div className="flex items-start space-x-2">
-                        {message.sender === "ai" && <Bot className="w-4 h-4 mt-0.5 text-gray-600" />}
-                        {message.sender === "user" && <User className="w-4 h-4 mt-0.5 text-white" />}
-                        <p className="text-sm leading-relaxed">{message.text}</p>
+                        {message.sender === "ai" && (
+                          <Bot className="w-3 h-3 md:w-4 md:h-4 mt-0.5 text-gray-600 flex-shrink-0" />
+                        )}
+                        {message.sender === "user" && (
+                          <User className="w-3 h-3 md:w-4 md:h-4 mt-0.5 text-white flex-shrink-0" />
+                        )}
+                        <p className="text-xs md:text-sm leading-relaxed">{message.text}</p>
                       </div>
                     </div>
                   </div>
@@ -202,17 +215,17 @@ export default function AIAssistant() {
 
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-100 p-3 rounded-lg">
+                    <div className="bg-gray-100 p-2 md:p-3 rounded-lg">
                       <div className="flex items-center space-x-2">
-                        <Bot className="w-4 h-4 text-gray-600" />
+                        <Bot className="w-3 h-3 md:w-4 md:h-4 text-gray-600" />
                         <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce"></div>
                           <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce"
                             style={{ animationDelay: "0.1s" }}
                           ></div>
                           <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce"
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>
@@ -225,25 +238,26 @@ export default function AIAssistant() {
               </div>
             </CardContent>
 
-            <div className="p-4 border-t">
+            <div className="p-3 md:p-4 border-t">
               <div className="flex space-x-2">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything about accessibility..."
-                  className="flex-1 text-sm"
+                  placeholder="Ask me anything..."
+                  className="flex-1 text-xs md:text-sm h-8 md:h-10"
                 />
                 <Button
                   onClick={handleSendMessage}
                   size="sm"
-                  className="text-white"
+                  className="text-white h-8 md:h-10 px-2 md:px-3"
                   style={{ backgroundColor: "#5409DA" }}
                   onMouseEnter={(e) => (e.target.style.backgroundColor = "#4A08C7")}
                   onMouseLeave={(e) => (e.target.style.backgroundColor = "#5409DA")}
                   disabled={!inputValue.trim() || isTyping}
+                  aria-label="Send message"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3 h-3 md:w-4 md:h-4" />
                 </Button>
               </div>
             </div>
